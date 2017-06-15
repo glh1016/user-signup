@@ -50,3 +50,9 @@ form = """<!DOCTYPE html>
         </form>
     </body>
 </html>"""
+
+@app.route("/")
+def index():
+    return form.format("")
+
+app.run()

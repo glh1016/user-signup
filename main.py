@@ -1,7 +1,26 @@
-from flask import Flask, request
+from flask import Flask, request, redirect
+import cgi
+import os
+import jinja2
+
+template_dir = os.path.join(os.path.dirname(__file__), 'templates')
+jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir), autoescape=True)
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
+
+@app.route("/")
+def index():
+    template = jinja_env.get_template('index-home.html')
+    return template.render()
+
+
+@app.route("/welcome", methods=['POST'])
+def hello():
+    first_name = request.form['username']
+    template = jinja_env.get_template('welcome.html')
+return template.render(name=username)
+
 
 form = """<!DOCTYPE html>
 
@@ -52,19 +71,26 @@ form = """<!DOCTYPE html>
 </html>"""
 
 @app.route("/")
-def index():
-    return form.format("")
+def display_form():
+    return form.format(username='',username_error='',password='',password_error='',verify='',verify_error='',email='', email_error='')
+
+#The user leaves any of the following fields empty: username, password, verify password.
+def field_empty():
+
+#The user's username or password is not valid -- for example, it contains a space character or it consists of less than 3 characters or more than 20 characters (e.g., a username or password of "me" would be invalid).
+def password_invalid():
+
+#The user's password and password-confirmation do not match.
+def password_mismatch():
+
+#The user provides an email, but it's not a valid email. Note: the email field may be left empty, but if there is content in it, then it must be validated. The criteria for a valid email address in this assignment are that it has a single @, a single ., contains no spaces, and is between 3 and 20 characters long.
+def valid_email():
+
 
 @app.route("/validate-form", methods = ['POST'])
-def validate-form():
-    return validate-form.format(username ='',username_error='',password='',password_error='',verify='',verify_error='',emai='', email_error='')
+def validate_form():
+    return validate_form.format
 
-    username_error = ""
-    password_error = ""
-    verify_error = ""
-    email_error = ""
-
-    
     username = request.form['username']
     password = request.form['password']
     verify = request.form['verify']

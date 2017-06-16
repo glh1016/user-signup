@@ -104,7 +104,7 @@ def validate_form():
     
     
     if not username_error and not password_error and not verify_error and not email_error: 
-        return redirect('/welcome')
+        return redirect('/welcome?username={0}'.format(username))
     else:
         return render_template('index-home.html',username_error=username_error,password_error=password_error,verify_error=verify_error,username=username,password=password,verify=verify,email=email,email_error=email_error)
 
@@ -114,8 +114,8 @@ def validate_form():
 
 @app.route('/welcome')
 def welcome():
-    #username = request.form['username']
-    return render_template('welcome.html',username = '')
+    username = request.args.get('username')
+    return render_template('welcome.html',username = username)
     #return '<h1> Welcome! </h1>'
 
 app.run()

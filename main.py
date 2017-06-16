@@ -71,7 +71,7 @@ def validate_form():
             password=password
         else:
             password_error = "Invalid password"
-            password = password
+            password = ''
     
     
     
@@ -80,6 +80,7 @@ def validate_form():
     if is_field_empty(verify):
         verify_error = "Empty field"
         verify = ''
+        password = ''
     else:
         verify = verify
         if verify != password:
@@ -140,7 +141,7 @@ app.run()
 
 ##For the username and email fields, you should preserve what the user typed, so they don't have to retype it. With the password fields, you should clear them, for security reasons.
 
-##If all the input is valid, then you should redirect the user to a welcome page that uses the username input to display a welcome message of: "Welcome, [username]!"
+#If all the input is valid, then you should redirect the user to a welcome page that uses the username input to display a welcome message of: "Welcome, [username]!"
 
 #Use templates (one for the index/home page and one for the welcome page) to render the HTML for your web app.
 
